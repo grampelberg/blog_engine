@@ -72,9 +72,12 @@ STATIC_URL = '/static/'
 # Examples: "http://foo.com/static/admin/", "/static/admin/".
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 
+import os
+base_path = os.path.dirname(__file__)
+
 # Additional locations of static files
 STATICFILES_DIRS = (
-    "/Users/trampelb/code/engine/static",
+    os.path.join(base_path, 'static'),
     "/tmp/",
 )
 
@@ -112,7 +115,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "/Users/trampelb/code/engine/views",
+    os.path.join(base_path, 'views'),
 )
 
 INSTALLED_APPS = (
