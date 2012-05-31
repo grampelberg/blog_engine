@@ -9,9 +9,11 @@
                 {{ field }}
             {% endif %}
         {% endfor %}
+        {% if not user.email %}
+        <input id="id_email" type="hidden" name="email" value="anon@example.com">
+        {% endif %}
         {% if not user.is_authenticated %}
         <input id="id_name" type="hidden" name="name" maxlength="50" value="anonymous">
-        <input id="id_email" type="hidden" name="email" value="anon@example.com">
         {% endif %}
         <textarea id="id_comment" rows="1" cols="10" name="comment"></textarea>
         <button type="submit" class="btn">Comment</button>
