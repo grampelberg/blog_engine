@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load cache %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+{% if post_list %}
+{% load markup %}
+<ul class="unstyled">
+{% for post in post_list.object_list %}
+{% cache 500 post_list post.slug %}
+    <li>
+        <div class="page-header">
+        <h2><a href="/{{ post.slug }}">{{ post.title }}
+            <small>{{ post.pub_date }}</small>
+        </a></h2>
+    </div>
+        <div>
+            {{ post.body|markdown:"safe" }}
+        </div>
+    </li>
+{% endcache %}
+{% endfor %}
+</ul>
+<ul class="pager pagination-left">
+    {% if post_list.has_previous %}
+    <li><a href="?page={{ post_list.previous_page_number }}">Previous</a></li>
+    {% endif %}
+    {% if post_list.has_next %}
+    <li><a href="?page={{ post_list.next_page_number }}">Next</a></li>
+    {% endif %}
+</ul>
+{% else %}
+    <p>No posts are available.</p>
+{% endif %}
+{% endblock %}
+
+

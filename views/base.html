@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}app.css" rel="stylesheet"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}app.js"></script>
+</head>
+<body class="container">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="#">Blog</a>
+                <ul class="nav">
+                    <li><a href="/">List</a></li>
+                    {% if user.is_authenticated and user.is_staff %}
+                    <li><a href="/create">Create Post</a></li>
+                    <li><a href="/profile">Edit Profile</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                    {% else %}
+                    <li><a href="/signup">Signup</a></li>
+                    <li><a href="/login">Login</a></li>
+                    {% endif %}
+                </ul>
+                <ul class="nav pull-right">
+                    {% block optional_nav %}{% endblock %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

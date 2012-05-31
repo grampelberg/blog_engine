@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load cache %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block optional_nav %}
+{% if user.is_authenticated and user.is_staff %}
+<li><a href="/{{ post.slug }}/edit">Edit</a></li>
+<li><a href="/{{ post.slug }}/delete">Delete</a></li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% cache 500 post_detail post.slug %}
+{% load markup %}
+
+<div class="page-header">
+<div class="thumbnail">
+  {% if author.avatar %}
+    <img src="/static/{{ author.avatar }}">
+  {% else %}
+    {% load gravatar %}
+    {% gravatar_img author.user.email 48 %}
+  {% endif %}
+  </div>
+  <h1>
+    {{ post.title }}
+    <small>{{ post.pub_date }}</small>
+  </h1>
+
+</div>
+<p>{{ post.body|markdown:"safe" }}</p>
+{% endcache %}
+{% load comments %}
+{% render_comment_form for post %}
+{% render_comment_list for post %}
+{% endblock %}

@@ -1,0 +1,10 @@
+.hidden { display:none; }
+
+.thumbnail {
+    margin-right: 15px;
+    float: left;
+}
+.thumbnail img {
+    height: 48px;
+    width: 48px;
+}
